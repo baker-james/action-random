@@ -1,24 +1,24 @@
 name: 'random'
 description: 'Print random number'
 inputs:
-  to-count:
-    description: 'Args to count'
+  my-prefix:
+    description: 'Prefix'
     required: true
     default: ''
 outputs:
-  my-arg-count:
-    description: 'The total'
-    value: ${{steps.return-result.outputs.num-count}}
+  my-random:
+    description: 'Random number'
+    value: ${{steps.return-result.outputs.some-random}}
 runs:
   using: 'composite'
   steps:
-    - name: Print args 
+    - name: Print 
       run: |
-        echo Args: ${{ inputs.to-count }}
+        echo Args: ${{ inputs.my-prefix }}
       shell: bash
     - id: return-result 
       run: | 
-        echo "num-count=`${{ github.action_path }}/count-args.sh ${{ inputs.to-count }}`" >> $GITHUB_OUTPUT
+        echo "some-random=`echo ${{ inputs.my-prefix }} $RANDOM`" >> $GITHUB_OUTPUT
       shell: bash
 branding:
   icon: 'archive'
