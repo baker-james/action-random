@@ -10,16 +10,10 @@ outputs:
     description: 'Random number'
     value: ${{steps.return-result.outputs.some-random}}
 runs:
-  using: 'composite'
-  steps:
-    - name: Print 
-      run: |
-        echo Args: ${{ inputs.my-prefix }}
-      shell: bash
-    - id: return-result 
-      run: | 
-        echo "some-random=`echo ${{ inputs.my-prefix }} $RANDOM`" >> $GITHUB_OUTPUT
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
+  args: 
+    - ${{ inputs.my-prefix}}
 branding:
   icon: 'archive'
   color: 'gray-dark'
